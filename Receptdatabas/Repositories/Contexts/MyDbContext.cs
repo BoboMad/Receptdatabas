@@ -18,9 +18,6 @@ namespace Receptdatabas.Repositories.Contexts
         //Sätter upp delete behavior
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Ta inte med password
-            modelBuilder.Entity<User>()
-                .Ignore(u => u.Password);
 
             modelBuilder.Entity<Recipe>()
             .HasOne(r => r.Category)

@@ -1,4 +1,5 @@
 ﻿using Receptdatabas.Repositories.Models.DTOs;
+using Receptdatabas.Repositories.Models.Entities;
 
 namespace Receptdatabas.Services.Interfaces
 {
@@ -6,8 +7,8 @@ namespace Receptdatabas.Services.Interfaces
     {
         UserDto GetUserById(int userId);
         IEnumerable<UserDto> GetAllUsers();
-        UserDto CreateUser (UserDto user);
-        UserDto UpdateUser (UserDto user);
-        UserDto DeleteUser (int userId);
+        UserDto CreateUser (User user);
+        UserDto UpdateUser (int id,User user);
+        void DeleteUser (int userId);
     }
 }

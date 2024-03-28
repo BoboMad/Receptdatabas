@@ -3,6 +3,8 @@ using Microsoft.OpenApi.Models;
 using Receptdatabas.Repositories.Contexts;
 using Receptdatabas.Repositories.Implementations;
 using Receptdatabas.Repositories.Intefaces;
+using Receptdatabas.Services.Implementations;
+using Receptdatabas.Services.Interfaces;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Receptdatabas
@@ -18,9 +20,10 @@ namespace Receptdatabas
             });
 
             builder.Services.AddDbContext<MyDbContext>(options =>
-            options.UseSqlServer("Data Source=DESKTOP-AIQOI8L\\MSSQLSERVER01;Initial Catalog=Receptdatabas;Integrated Security=SSPI;TrustServerCertificate=True;"));
+            options.UseSqlServer("Data Source=LAPTOP-RSRDNQGD\\MSSQLSERVER1;Initial Catalog=Receptdatabas;Integrated Security=SSPI;TrustServerCertificate=True;"));
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddControllers();

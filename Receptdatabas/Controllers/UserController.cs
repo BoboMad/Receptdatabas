@@ -1,9 +1,6 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Receptdatabas.Repositories.Intefaces;
-using Receptdatabas.Repositories.Models.DTOs;
+﻿using Microsoft.AspNetCore.Mvc;
 using Receptdatabas.Repositories.Models.Entities;
+using Receptdatabas.Services.Interfaces;
 
 namespace Receptdatabas.Controllers
 {
@@ -12,21 +9,16 @@ namespace Receptdatabas.Controllers
     public class UserController : ControllerBase
     {
 
-        private readonly IUserRepository _userRepository;
-        private readonly IMapper _mapper;
-
-        public UserController(IUserRepository userRepository, IMapper mapper)
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
         {
-            _userRepository = userRepository;
-            _mapper = mapper;
+            _userService = userService;
         }
 
         [HttpGet]
         [Route("/login")]
         public IActionResult Login()
         {
-
-
             return Ok();
         }
 
@@ -36,60 +28,80 @@ namespace Receptdatabas.Controllers
         public IActionResult CreateUser(User user)
         {
 
-            if (!ModelState.IsValid)
+            try
             {
-                // Inspect ModelState errors
-                var errors = ModelState.Values.SelectMany(v => v.Errors)
-                                                 .Select(e => e.ErrorMessage);
-                return BadRequest("hej" + errors);
+                _userService.CreateUser(user);
+                return Ok("User created");
             }
-
-            if (user == null)
+            catch (Exception ex)
             {
-                return BadRequest("Invalid user data");
+                return BadRequest(ex.Message);
             }
-            else
-            {
-                _userRepository.CreateUser(user);
-                return Ok();
-            }
-
         }
 
         [HttpGet]
         [Route("/api/User/{id}")]
         public IActionResult GetUserById(int id)
         {
-            var user = _userRepository.GetUserById(id);
 
-            if (user == null)
+            try
             {
-                return NotFound();
+                var userDto = _userService.GetUserById(id);
+                return Ok(userDto);
+
+            }
+            catch (Exception ex)
+            {
+                return NotFound("No user with that id was found");
             }
 
-            var userDto = _mapper.Map<UserDto>(user);
-            return Ok(userDto);
         }
 
         [HttpGet]
         [Route("/api/User/All")]
         public IActionResult GetAllUsers()
         {
-            var users = _userRepository.GetAllUsers();
-            if (users == null || !users.Any())
+            try
             {
-                return NotFound("No users found");
+                var userDtos = _userService.GetAllUsers();
+                return Ok(userDtos);
+
             }
-            var userDtos = _mapper.Map<IEnumerable<UserDto>>(users);
-            return Ok(userDtos);
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpDelete]
         [Route("/api/User/{id}")]
         public IActionResult DeleteUser(int id)
         {
-            _userRepository.DeleteUser(id);
-            return Ok("User deleted");
+
+            try
+            {
+                _userService.DeleteUser(id);
+                return Ok("User deleted");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occured when deleting the user");
+            }
+        }
+
+        [HttpPut]
+        [Route("/api/User/{id}")]
+        public IActionResult UpdateUser(int id, [FromBody] User updatedUser)
+        {
+            try
+            {
+                var userDto = _userService.UpdateUser(id, updatedUser);
+                return Ok(userDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
