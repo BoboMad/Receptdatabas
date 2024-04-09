@@ -39,6 +39,19 @@ namespace Receptdatabas.Repositories.Implementations
             return _context.Users.SingleOrDefault(u => u.Id == userId);
         }
 
+        public int LoginUser(string username, string password)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.Username == username && u.Password == password);
+            if(user != null)
+            {
+                return user.Id;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         public void UpdateUser(User user)
         {
             _context.Entry(user).State = EntityState.Modified;

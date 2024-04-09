@@ -8,7 +8,8 @@ namespace Receptdatabas.Repositories.Models.Profiles
     {
         public CategoryProfile()
         {
-            CreateMap<Category, CategoryDto>();
+            CreateMap<Category, CategoryDto>()
+                .ForMember(dest => dest.Recipes, opt => opt.Ignore());
             CreateMap<CategoryDto, Category>();
         }
     }

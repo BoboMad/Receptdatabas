@@ -10,9 +10,9 @@ namespace Receptdatabas.Repositories.Models.Entities
         public int Value { get; set; }
 
         public int RecipeId { get; set; }
-        public virtual Recipe Recipe { get; set; }
+        public virtual Recipe? Recipe { get; set; }
 
         public int UserID { get; set; }
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
     }
 }

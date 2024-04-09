@@ -6,7 +6,7 @@ using Receptdatabas.Repositories.Models.Entities;
 
 namespace Receptdatabas.Repositories.Implementations
 {
-    public class RecipeRepository:IRecipeInterface
+    public class RecipeRepository:IRecipeRepository
     {
         private readonly MyDbContext _context;
         public RecipeRepository(MyDbContext context)
@@ -32,13 +32,29 @@ namespace Receptdatabas.Repositories.Implementations
 
         public IEnumerable<Recipe> GetAllRecipes()
         {
-            return _context.Recipes.ToList();
+            return _context.Recipes
+                .Include(r => r.Category)
+                .Include(r => r.User)
+                .ToList();
         }
 
         public Recipe GetRecipe(int id)
         {
-            return _context.Recipes.SingleOrDefault(r => r.Id == id);
+            return _context.Recipes
+                .Include(r => r.Category)
+                .Include(r => r.User)
+                .SingleOrDefault(r => r.Id == id);
         }
+
+        public IEnumerable<Recipe> SearchRecipe(string searchParam)
+        {
+            return _context.Recipes
+                .Include(r => r.Category)
+                .Include(r => r.User)
+                .ToList()
+                .Where(r => r.Title.Contains(searchParam));
+        }
+
 
         public void UpdateRecipe(Recipe recipe)
         {

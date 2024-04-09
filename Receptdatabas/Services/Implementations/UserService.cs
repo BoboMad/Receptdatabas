@@ -17,6 +17,20 @@ namespace Receptdatabas.Services.Implementations
             _userRepository = userRepository;
             _mapper = mapper;
         }
+
+        public int LoginUser(string username, string password)
+        {
+            var userId = _userRepository.LoginUser(username, password);
+            if(userId == 0)
+            {
+                throw new Exception("Invalid credentials");
+            }
+            else
+            {
+                return userId;
+            }
+        }
+
         public UserDto CreateUser(User user)
         {
 

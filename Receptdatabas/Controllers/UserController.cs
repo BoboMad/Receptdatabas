@@ -17,9 +17,17 @@ namespace Receptdatabas.Controllers
 
         [HttpGet]
         [Route("/login")]
-        public IActionResult Login()
+        public IActionResult Login(string username, string password)
         {
-            return Ok();
+            try
+            {
+                var userId = _userService.LoginUser(username, password);
+                return Ok(userId);
+            }
+            catch (Exception ex)
+            {
+                return Unauthorized(ex.Message);
+            }
         }
 
 

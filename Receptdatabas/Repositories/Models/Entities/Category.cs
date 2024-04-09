@@ -10,6 +10,6 @@ namespace Receptdatabas.Repositories.Models.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
-        public virtual ICollection<Recipe> Recipes { get; set; }
+        public virtual ICollection<Recipe> Recipes { get; set; } = new List<Recipe>();
     }
 }

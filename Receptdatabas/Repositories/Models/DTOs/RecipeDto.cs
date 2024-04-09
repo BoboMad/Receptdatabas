@@ -7,8 +7,8 @@ namespace Receptdatabas.Repositories.Models.DTOs
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public Category Category { get; set; }
-        public User Creator { get; set; }
+        public CategoryDto Category { get; set; }
+        public UserDto Creator { get; set; }
         public IEnumerable<Rating> Ratings { get; set; }
     }
 }

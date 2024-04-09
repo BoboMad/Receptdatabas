@@ -6,6 +6,7 @@ using Receptdatabas.Repositories.Intefaces;
 using Receptdatabas.Services.Implementations;
 using Receptdatabas.Services.Interfaces;
 using System.Security.Cryptography.X509Certificates;
+using System.Text.Json.Serialization;
 
 namespace Receptdatabas
 {
@@ -20,10 +21,17 @@ namespace Receptdatabas
             });
 
             builder.Services.AddDbContext<MyDbContext>(options =>
-            options.UseSqlServer("Data Source=LAPTOP-RSRDNQGD\\MSSQLSERVER1;Initial Catalog=Receptdatabas;Integrated Security=SSPI;TrustServerCertificate=True;"));
+            options.UseSqlServer("Data Source=DESKTOP-AIQOI8L\\MSSQLSERVER01;Initial Catalog=Receptdatabas;Integrated Security=SSPI;TrustServerCertificate=True;"));
 
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IRecipeRepository, RecipeRepository>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+            builder.Services.AddScoped<IRatingRepository, RatingRepository>();
+            builder.Services.AddScoped<IRecipeService, RecipeService>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IRatingService, RatingService>();
+
             builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddControllers();

@@ -4,6 +4,7 @@ namespace Receptdatabas.Repositories.Intefaces
 {
     public interface IUserRepository
     {
+        int LoginUser (string username, string password);
         User GetUserById(int userId);
         IEnumerable<User> GetAllUsers();
         void CreateUser(User user);

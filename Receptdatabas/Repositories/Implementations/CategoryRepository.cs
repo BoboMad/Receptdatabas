@@ -5,12 +5,18 @@ using Receptdatabas.Repositories.Models.Entities;
 
 namespace Receptdatabas.Repositories.Implementations
 {
-    public class CategoryRepository : ICategoryInterface
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly MyDbContext _context;
         public CategoryRepository(MyDbContext context)
         {
             _context = context;
+        }
+
+        public void CreateCategory(Category category)
+        {
+            _context.Categories.Add(category);
+            _context.SaveChanges();
         }
 
         public void DeleteCategory(int id)

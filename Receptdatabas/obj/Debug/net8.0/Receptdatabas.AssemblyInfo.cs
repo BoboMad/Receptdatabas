@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Receptdatabas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c913ee38c7b2aa778e49d84f25100d3e36b8f06e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bf3665d37bc51dd12910f0ab4cf019bd4ee3beaf")]
 [assembly: System.Reflection.AssemblyProductAttribute("Receptdatabas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Receptdatabas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
